@@ -11,12 +11,12 @@ import { getBusinessCardRef } from "../../../fireQuery/fireConnection";
 import createUUID from "../../../lib/uuidTool";
 import TagInputContainer from "../containers/TagInputContainer";
 
-const validation = ({ name = "", email = "" }) => {
+const validation = () => {
   const err = {};
-  if (name.trim().length === 0) err.name = "Name cannot be blank";
-  if (!R.isEmpty(email.trim()) && !validator.isEmail(email)) {
-    err.email = "Email is not valid";
-  }
+  // if (name.trim().length === 0) err.name = "Name cannot be blank";
+  // if (!R.isEmpty(email.trim()) && !validator.isEmail(email)) {
+  //   err.email = "Email is not valid";
+  // }
   return err;
 };
 
@@ -28,20 +28,7 @@ function getBase64(img, callback) {
 
 @connect()
 @simpleForm({
-  fields: [
-    "name",
-    "email",
-    "phone",
-    "company",
-    "address",
-    "website",
-    "instagram",
-    "facebook",
-    "tagKeySet",
-    "comments",
-    "downloadURL",
-    "cardImageName"
-  ],
+  fields: ["title", "comment", "inStock", "downloadURL", "cardImageName"],
   validate: validation
 })
 class ContactItemForm extends Component {
@@ -118,7 +105,7 @@ class ContactItemForm extends Component {
   render() {
     const { submit, onFileSelect, onDeleteFile, props } = this;
     const {
-      comments,
+      comment,
       hasSubmitted,
       okText = "Ok",
       cancelText = "Cancel",
@@ -132,16 +119,7 @@ class ContactItemForm extends Component {
     } = props;
     const { imageSrc, uploadLoading } = this.state;
 
-    const fieldArray = [
-      "name",
-      "email",
-      "phone",
-      "address",
-      "company",
-      "website",
-      "instagram",
-      "facebook"
-    ];
+    const fieldArray = ["title", "comment", "inStock"];
 
     const capitalize = str => str.slice(0, 1).toUpperCase() + str.slice(1);
 
@@ -162,10 +140,10 @@ class ContactItemForm extends Component {
         <div>
           {renderField}
           <LabelFieldSet
-            label="Comments"
-            err={(hasSubmitted || comments.touched) && comments.error}
+            label="Comment"
+            err={(hasSubmitted || comment.touched) && comment.error}
           >
-            <textarea className="form-control" {...comments} />
+            <textarea className="form-control" {...comment} />
           </LabelFieldSet>
 
           <LabelFieldSet
@@ -226,7 +204,7 @@ ContactItemForm.propTypes = {
   website: PropTypes.object,
   instagram: PropTypes.object,
   facebook: PropTypes.object,
-  comments: PropTypes.object,
+  comment: PropTypes.object,
   hasSubmitted: PropTypes.bool,
   okText: PropTypes.string,
   cancelText: PropTypes.string,

@@ -3,13 +3,14 @@ const firebase = require("firebase");
 
 console.log("connection to firebase with env", env);
 
+// Initialize Firebase
 let config = {
-  apiKey: "AIzaSyCOj36XbC1HiadXY54awf4ygrJ2adW5YD0",
-  authDomain: "miaocontacts.firebaseapp.com",
-  databaseURL: "https://miaocontacts.firebaseio.com",
-  projectId: "miaocontacts",
-  storageBucket: "miaocontacts.appspot.com",
-  messagingSenderId: "979490753402"
+  apiKey: "AIzaSyBnX1Yt1Drfb51N7GTELUaOQcTM3yiVA3Q",
+  authDomain: "ehair-expo-dev.firebaseapp.com",
+  databaseURL: "https://ehair-expo-dev.firebaseio.com",
+  projectId: "ehair-expo-dev",
+  storageBucket: "ehair-expo-dev.appspot.com",
+  messagingSenderId: "401113474249"
 };
 
 if (env == "production") {

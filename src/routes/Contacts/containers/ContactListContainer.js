@@ -18,6 +18,7 @@ import TagListHeaderContainer from "../containers/TagListHeaderContainer";
 import columns from "../../../properties/contactColumns";
 import EventLogContainer from "../../EventLog/components/EventLogContainer";
 import ContactList from "../components/ContactList";
+import contactColumns from "../../../properties/contactColumns";
 
 @connect(state => ({
   contacts: state.contactChunk.contacts,
@@ -233,16 +234,7 @@ class ContactListContainer extends Component {
     const visibleContacts = contacts.filter(
       c =>
         !showOnlyDeleted === !c.deleted &&
-        propContains(searchKey, [
-          "name",
-          "email",
-          "phone",
-          "address",
-          "comments",
-          "facebook",
-          "instagram",
-          "website"
-        ])(c) &&
+        propContains(searchKey, contactColumns.map(col => col.key))(c) &&
         (R.isEmpty(activeColorIds) ||
           activeColorIds.includes(c.color || "white")) &&
         (R.isEmpty(activeTagKeys) ||
@@ -251,16 +243,7 @@ class ContactListContainer extends Component {
 
     const filter = R.allPass([
       //   R.propEq("deleted", showOnlyDeleted),
-      propContains(searchKey, [
-        "name",
-        "email",
-        "phone",
-        "address",
-        "comments",
-        "facebook",
-        "instagram",
-        "website"
-      ]),
+      propContains(searchKey, contactColumns.map(R.prop("key"))),
       R.either(
         R.always(R.isEmpty(activeColorIds)),
         R.compose(
@@ -294,7 +277,8 @@ class ContactListContainer extends Component {
               afterTagDelete={tag => deleteTagFromContacts(tag)}
               activeTagKeys={activeTagKeys}
               onActiveTagsChange={keys =>
-                this.setState({ activeTagKeys: keys })}
+                this.setState({ activeTagKeys: keys })
+              }
               tags={tags}
             />
           </div>
