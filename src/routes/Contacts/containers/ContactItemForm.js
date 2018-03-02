@@ -28,7 +28,14 @@ function getBase64(img, callback) {
 
 @connect()
 @simpleForm({
-  fields: ["title", "comment", "inStock", "downloadURL", "cardImageName"],
+  fields: [
+    "name",
+    "comment",
+    "inStock",
+    "tagKeySet",
+    "downloadURL",
+    "cardImageName"
+  ],
   validate: validation
 })
 class ContactItemForm extends Component {
@@ -119,7 +126,7 @@ class ContactItemForm extends Component {
     } = props;
     const { imageSrc, uploadLoading } = this.state;
 
-    const fieldArray = ["title", "comment", "inStock"];
+    const fieldArray = ["name", "comment", "inStock"];
 
     const capitalize = str => str.slice(0, 1).toUpperCase() + str.slice(1);
 

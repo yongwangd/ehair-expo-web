@@ -11,6 +11,7 @@ import {
 } from "../../../fireQuery/tagsQuery";
 import SimpleInputButton from "../../../commonCmps/SimpleInputButton";
 import { parseTagFromLabel } from "../contactUtility";
+import TagInputContainer from "../containers/TagInputContainer";
 
 @connect(state => ({
   tags: state.tagChunk.tags
@@ -18,12 +19,17 @@ import { parseTagFromLabel } from "../contactUtility";
 class TagListHeaderContainer extends Component {
   state = {
     edittingTags: false,
+    edittingSingleTag: false,
     newTagName: ""
   };
 
   onTagClick = tag => {
     const { onActiveTagsChange, activeTagKeys } = this.props;
     onActiveTagsChange(toggleArrayItem(activeTagKeys, tag.key));
+  };
+
+  editSingleTag = tag => {
+    this.setState({ edittingSingleTag: tag });
   };
 
   addNewTag = label => {
@@ -91,7 +97,13 @@ class TagListHeaderContainer extends Component {
 
   render() {
     const { onActiveTagsChange, tags, ...rest } = this.props;
-    const { edittingTags, tagInEdit, tempLabel, newTagName } = this.state;
+    const {
+      edittingTags,
+      tagInEdit,
+      tempLabel,
+      newTagName,
+      edittingSingleTag
+    } = this.state;
     const {
       addNewTag,
       newTagNameError,
@@ -149,7 +161,9 @@ class TagListHeaderContainer extends Component {
           Restore
         </a>
         <Popconfirm
-          title={`Are you sure permanently ${tag.label}? \nThe app will also delete this tag from Contacts. \nThis action is not reversable`}
+          title={`Are you sure permanently ${
+            tag.label
+          }? \nThe app will also delete this tag from Contacts. \nThis action is not reversable`}
           onConfirm={() => this.permanentlyDeleteTag(tag)}
           onCancel={() => {}}
           okText="Yes"
@@ -166,10 +180,25 @@ class TagListHeaderContainer extends Component {
           {...rest}
           tags={tags.filter(tg => !tg.archived)}
           onTagClick={this.onTagClick}
+          editTag={this.editSingleTag}
         />
         <Tag onClick={() => this.setState({ edittingTags: true })}>
           Manage Tags
         </Tag>
+        {edittingSingleTag && (
+          <Modal
+            visible={edittingSingleTag}
+            onCancel={() => this.setState({ edittingSingleTag: false })}
+          >
+            <TagInputContainer
+              selectedTagSet={edittingSingleTag.parentTagSet || {}}
+              onTagSetChange={keySet => {
+                edittingSingleTag.parentTagSet = keySet;
+                console.log("new keyset", keySet);
+              }}
+            />
+          </Modal>
+        )}
         {edittingTags && (
           <Modal
             visible={edittingTags}
