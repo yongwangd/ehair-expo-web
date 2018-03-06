@@ -61,9 +61,10 @@ class TagListHeaderContainer extends Component {
   };
 
   updateTagParent = (tag, parentTagSet) => {
-    updateContactTagById(tag._id, { parentTagSet }).then(() =>
-      message.success("Parent tag updated!")
-    );
+    updateContactTagById(tag._id, { parentTagSet }).then(() => {
+      this.setState({ edittingSingleTag: null });
+      message.success("Parent tag updated!");
+    });
   };
 
   startEdittingLabel = tag =>
