@@ -18,12 +18,14 @@ getFirebase()
     if (user) {
       console.log("user logged in", user);
       store.dispatch(authActions.userLogin(user));
-      contactListSub.subscribe(list =>
-        store.dispatch(contactActions.fetchContacts(list))
-      );
-      contactTagListSub.subscribe(tags =>
-        store.dispatch(tagAction.fetchTags(tags))
-      );
+      contactListSub.subscribe(list => {
+        console.log(JSON.stringify(list));
+        store.dispatch(contactActions.fetchContacts(list));
+      });
+      contactTagListSub.subscribe(tags => {
+        console.log(JSON.stringify(tags));
+        store.dispatch(tagAction.fetchTags(tags));
+      });
     } else {
       console.log("user logged out", user);
       store.dispatch(authActions.userLogout());

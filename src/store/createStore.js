@@ -3,6 +3,7 @@ import {
   compose,
   createStore as createReduxStore
 } from "redux";
+import logger from 'redux-logger';
 import thunk from "redux-thunk";
 import { browserHistory } from "react-router";
 import makeRootReducer from "./reducers";
@@ -12,7 +13,7 @@ const createStore = (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk];
+  const middleware = [thunk, logger];
 
   // ======================================================
   // Store Enhancers
