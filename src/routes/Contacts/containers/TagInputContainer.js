@@ -59,6 +59,7 @@ export default class TagInputContainer extends Component {
     const { tags, ...rest } = this.props;
     const { addNewTag, onTagSelect, onClose } = this;
     const { loading } = this.state;
+    console.log('tags conainer', tags);
 
     return (
       <Spin

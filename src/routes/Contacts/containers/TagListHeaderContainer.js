@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import R from "ramda";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Tag, Modal, Tabs, message, Icon, Popconfirm, Input } from "antd";
@@ -56,6 +57,12 @@ class TagListHeaderContainer extends Component {
   archiveTag = tag => {
     updateContactTagById(tag._id, { archived: true }).then(() =>
       message.success(`Tag ${tag.label} archived`)
+    );
+  };
+
+  updateTagParent = (tag, parentTagSet) => {
+    updateContactTagById(tag._id, { parentTagSet }).then(() =>
+      message.success("Parent tag updated!")
     );
   };
 
@@ -189,11 +196,32 @@ class TagListHeaderContainer extends Component {
           <Modal
             visible={edittingSingleTag}
             onCancel={() => this.setState({ edittingSingleTag: false })}
+            onOk={() =>
+              this.updateTagParent(
+                edittingSingleTag,
+                edittingSingleTag.parentTagSet
+              )
+            }
           >
+            <span>Parent Tag</span>
             <TagInputContainer
               selectedTagSet={edittingSingleTag.parentTagSet || {}}
               onTagSetChange={keySet => {
-                edittingSingleTag.parentTagSet = keySet;
+                // edittingSingleTag.parentTagSet = keySet;
+                // this.setState({
+                //   edittingSingleTag: {
+                //     ...this.state.edittingSingleTag,
+                //     parentTagSet: keySet
+                //   }
+                // });
+
+                this.setState(
+                  R.assocPath(
+                    ["edittingSingleTag", "parentTagSet"],
+                    keySet,
+                    this.state
+                  )
+                );
                 console.log("new keyset", keySet);
               }}
             />
