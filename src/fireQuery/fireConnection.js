@@ -5,22 +5,22 @@ console.log("connection to firebase with env", env);
 
 // Initialize Firebase
 let config = {
-  apiKey: "AIzaSyBnX1Yt1Drfb51N7GTELUaOQcTM3yiVA3Q",
-  authDomain: "ehair-expo-dev.firebaseapp.com",
-  databaseURL: "https://ehair-expo-dev.firebaseio.com",
-  projectId: "ehair-expo-dev",
-  storageBucket: "ehair-expo-dev.appspot.com",
-  messagingSenderId: "401113474249"
+  apiKey: "AIzaSyC-iww3k0ANDvHXFJmRJYWNlLVpwlubeXE",
+  authDomain: "miao-inventory.firebaseapp.com",
+  databaseURL: "https://miao-inventory.firebaseio.com",
+  projectId: "miao-inventory",
+  storageBucket: "miao-inventory.appspot.com",
+  messagingSenderId: "347920015620"
 };
 
 if (env == "production") {
   config = {
-    apiKey: "AIzaSyCR_sxrcsU0LaPC2nDpcZc9uZ7W0yzLlN0",
-    authDomain: "miaocontacts-production.firebaseapp.com",
-    databaseURL: "https://miaocontacts-production.firebaseio.com",
-    projectId: "miaocontacts-production",
-    storageBucket: "miaocontacts-production.appspot.com",
-    messagingSenderId: "969455618874"
+    apiKey: "AIzaSyC-iww3k0ANDvHXFJmRJYWNlLVpwlubeXE",
+    authDomain: "miao-inventory.firebaseapp.com",
+    databaseURL: "https://miao-inventory.firebaseio.com",
+    projectId: "miao-inventory",
+    storageBucket: "miao-inventory.appspot.com",
+    messagingSenderId: "347920015620"
   };
 }
 

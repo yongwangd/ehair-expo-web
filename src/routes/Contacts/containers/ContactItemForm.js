@@ -3,13 +3,15 @@ import React, { Component } from "react";
 import validator from "validator";
 import R from "ramda";
 import PropTypes from "prop-types";
-import { Button, message, Popconfirm, Spin } from "antd";
+import { Collapse, Button, message, Popconfirm, Spin } from "antd";
 import LabelFieldSet from "../../../commonCmps/LabelFieldSet";
 import simpleForm from "../../../lib/simpleForm";
 import ImageViewer from "../../../commonCmps/ImageViewer";
 import { getBusinessCardRef } from "../../../fireQuery/fireConnection";
 import createUUID from "../../../lib/uuidTool";
 import TagInputContainer from "../containers/TagInputContainer";
+
+const { Panel } = Collapse;
 
 const validation = () => {
   const err = {};
@@ -164,6 +166,18 @@ class ContactItemForm extends Component {
               />
             </div>
           </LabelFieldSet>
+
+          <Collapse bordered={false} defaultActiveKey={["1"]}>
+            <Panel header="This is panel header 1" key="1">
+              FIrst Thing
+            </Panel>
+            <Panel header="This is panel header 2" key="2">
+              FIrst Thing
+            </Panel>
+            <Panel header="This is panel header 3" key="3">
+              FIrst Thing
+            </Panel>
+          </Collapse>
 
           <ImageViewer
             onFileSelect={onFileSelect}
